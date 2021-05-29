@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vocabulary</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+
+        <p>Word : {{ word }}</p>
+
+        {% for value in phonetics %}            
+            {% for k,v in value.items %}
+                <p>{{ k }} : {{ v }}</p>            
+            {% endfor %}
+        {% endfor %}
+
+
+        {% for partOfSpeech_definitions in meanings %}            
+            {% for key,value in partOfSpeech_definitions.items %}
+                {% if key == 'partOfSpeech' %}
+                    <p>{{ key }} : {{ value }}</p>
+                {% endif %}
+                {% if key == 'definitions' %}
+                    {% for definitions in value %}
+                        {% for key_definitions,value_definitions in definitions.items %}
+                            {% if key_definitions != 'synonyms' %}
+                            <p>{{ key_definitions }} : {{ value_definitions }}</p> 
+                            {% endif %}                                     
+                            {% if key_definitions == 'synonyms' %}
+                            <p>synonyms : </p>
+                                {% for synonyms_list in value_definitions %}
+                                    <p>{{ synonyms_list }}</p>            
+                                {% endfor %}     
+                            {% endif %} 
+                        {% endfor %}    
+                    {% endfor %}            
+                {% endif %}
+            {% endfor %}                            
+        {% endfor %}
+        
+        <script src=""></script>
+    </body>
+</html>
